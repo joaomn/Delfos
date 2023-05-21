@@ -6,11 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import br.com.delfos.entitys.AnuncioEntity;
+import br.com.delfos.entitys.EmpresaEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,11 +42,15 @@ public class AnuncioDTO {
 	private int avaliacao;
 	
 		
-	private boolean logo;
+	
 	
 	@NotBlank(message = "texto do anuncio não informado")
 	@Column(length = 600)
 	private String texto;
+	
+	@NotBlank(message = "coluna tipo requerida")
+	private String tipo;	
+	
 	
 	@NotBlank(message = "Valor do anuncio não informado")
 	private String valor;
@@ -53,6 +60,10 @@ public class AnuncioDTO {
 	private Long id;
 	
 	private String messagem;
+	
+	@ManyToOne
+	@JoinColumn(name = "EMPRESA_ID")
+	private EmpresaEntity empresa;
 
 	public AnuncioDTO(AnuncioEntity anuncio) {
 		
@@ -64,8 +75,13 @@ public class AnuncioDTO {
 		this.texto = anuncio.getTexto();
 		this.valor = anuncio.getValor();
 		this.id = anuncio.getId();
+		this.empresa = anuncio.getEmpresa();
+		this.tipo = anuncio.getTipo();
+		
 		
 	}
+	
+	 
 	
 	
 	

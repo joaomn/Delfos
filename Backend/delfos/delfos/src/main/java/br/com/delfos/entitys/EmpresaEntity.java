@@ -51,6 +51,7 @@ public class EmpresaEntity {
 	private String cpfCnpj;
 	
 	
+	
 	public EmpresaDTO toDto() {
 		return new EmpresaDTO(this);
 	}
@@ -70,8 +71,7 @@ public class EmpresaEntity {
 	
 	
 	
-	@OneToMany(mappedBy = "empresa")
-	private List<AnuncioEntity> anuncios;
+	
 	
 	
 

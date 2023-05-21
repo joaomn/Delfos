@@ -32,7 +32,7 @@ public class AnuncioEntity {
 	private String titulo;
 	
 	@NotNull(message = "data do anuncio não informada")
-	@Column(name = " Data_postagem")
+	@Column(name = "Data_postagem")
 	private LocalDate dtPostagem;
 	
 	
@@ -45,8 +45,9 @@ public class AnuncioEntity {
 	@Column(length = 100)
 	private int avaliacao;
 	
-		
-	private boolean logo;
+	@NotBlank(message = "coluna tipo requerida")
+	private String tipo;	
+	
 	
 	@NotBlank(message = "texto do anuncio não informado")
 	@Column(length = 600)
@@ -60,7 +61,7 @@ public class AnuncioEntity {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "EMPRESA_ID", nullable = false)
+	@JoinColumn(name = "EMPRESA_ID")
 	private EmpresaEntity empresa;
 	
 	
@@ -78,8 +79,8 @@ public AnuncioEntity(AnuncioDTO anuncio) {
 		this.texto = anuncio.getTexto();
 		this.valor = anuncio.getValor();
 		this.id = anuncio.getId();
-		
-		
+		this.empresa = anuncio.getEmpresa();
+		this.tipo = anuncio.getTipo();
 	}
 
 }

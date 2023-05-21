@@ -14,26 +14,25 @@ import br.com.delfos.repositorys.EmpresaRepository;
 import br.com.delfos.services.excepcions.NotFoundException;
 
 @Service
-public class AnuncioServiceIMPL  implements AnuncioService{
-	
+public class AnuncioServiceIMPL implements AnuncioService {
+
 	@Autowired
 	private AnuncioRepository Arepository;
-	
+
 	@Autowired
 	private EmpresaRepository Erepository;
 
 	@Override
-	public void salvar(AnuncioEntity anuncio, Long id) throws NotFoundException {
-		
-		Optional<AnuncioEntity> objId = this.Arepository.findAlgumById(id);
-		
-		if(objId.isPresent()) {
+	public void salvar(AnuncioEntity anuncio) throws NotFoundException {
+
+		Optional<AnuncioEntity> objId = this.Arepository.findAlgumById(anuncio.getId());
+
+		if (objId.isPresent()) {
 			throw new NotFoundException("Anuncio  já Cadastrado");
 		}
-		
+
 		this.Arepository.save(anuncio);
-		
-		
+
 	}
 
 	@Override
@@ -64,39 +63,36 @@ public class AnuncioServiceIMPL  implements AnuncioService{
 
 	@Override
 	public void atualizar(Long id, AnuncioDTO anuncio) throws NotFoundException {
-		
+
 		Optional<AnuncioEntity> objAnuncio = Arepository.findById(id);
-		
+
 		if (objAnuncio.isPresent()) {
 			AnuncioEntity obj = objAnuncio.get();
-			
+
 			obj.setEmail(anuncio.getEmail());
 			obj.setTelefone(anuncio.getTelefone());
 			obj.setTexto(anuncio.getTexto());
 			obj.setTitulo(anuncio.getTitulo());
 			obj.setValor(anuncio.getValor());
 			obj.setAvaliacao(anuncio.getAvaliacao());
-			
-			
-				
-				
-				Arepository.save(obj);
-			}
-		
-		
-		if(objAnuncio.isEmpty()) {
-			
-			throw new NotFoundException("Usuario não Cadastrado");
-			
+			obj.setTipo(anuncio.getTipo());
+
+			Arepository.save(obj);
 		}
-		
+
+		if (objAnuncio.isEmpty()) {
+
+			throw new NotFoundException("Usuario não Cadastrado");
+
+		}
+
 	}
 
 	@Override
 	public void deletar(Long id) throws NotFoundException {
-	
-	Optional<AnuncioEntity> objAnuncio = Arepository.findById(id);
-		
+
+		Optional<AnuncioEntity> objAnuncio = Arepository.findById(id);
+
 		try {
 			if (objAnuncio.isEmpty()) {
 				throw new NotFoundException("Usuario não cadastrado.");
@@ -106,51 +102,87 @@ public class AnuncioServiceIMPL  implements AnuncioService{
 		} catch (Exception e) {
 			throw new NotFoundException("Não foi possivel deletar o anuncio.");
 		}
-		
+
 	}
 
 	@Override
 	public void contarVotos(int numero, Long idAnuncio, Long idEmpresa) {
-		
+
 		Optional<AnuncioEntity> objAnuncio = this.Arepository.findById(idAnuncio);
-		
-		if(objAnuncio.isPresent()) {
+
+		if (objAnuncio.isPresent()) {
 			Optional<EmpresaEntity> objEmpresa = this.Erepository.findById(idEmpresa);
-			if(objEmpresa.isPresent()) {
-				
+			if (objEmpresa.isPresent()) {
+
 				AnuncioDTO obj = new AnuncioDTO();
-				
+
 				Long id = objAnuncio.get().getId();
-				
+
 				int avaliacaoInicial = objAnuncio.get().getAvaliacao();
 				
-				
+
 				int porcentagemAvaliacao = (numero / 5) * 100;
-				
-				
-				int avaliacaoFinal = (avaliacaoInicial + porcentagemAvaliacao ) / 2;
-				
-				if(numero == 0) {
+
+				int avaliacaoFinal = (avaliacaoInicial + porcentagemAvaliacao) / 100;
+
+				if (numero == 0) {
 					avaliacaoFinal = porcentagemAvaliacao;
 				}
-				
+
 				obj.setId(id);
 				obj.setAvaliacao(avaliacaoFinal);
-				
+
 				try {
 					this.atualizar(id, obj);
 				} catch (NotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
-				
-				
+
 			}
 		}
-		
+
 	}
 
-}
+	@Override
+	public List<AnuncioEntity> buscarPorTitulo(String string) {
+		
+		try {
+			
+			List<AnuncioEntity> obj = Arepository.findAlgumByTitulo(string);
+
+			return obj;
+
+		} catch (Exception e) {
+
+			return null;
+
+		}
+	}
+
+	@Override
+	public List<AnuncioEntity> buscarPorTipo(String string) {
+		
+	try {
+			
+			List<AnuncioEntity> obj = Arepository.findAlgumByTipo(string);
+
+			return obj;
+
+		} catch (Exception e) {
+
+			return null;
+
+		}
+	}
+
+
+
+	
+//		
+//		
+//		
+//		
+//	}
+
+	}

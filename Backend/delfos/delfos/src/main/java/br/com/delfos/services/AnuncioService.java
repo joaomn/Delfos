@@ -11,7 +11,9 @@ import br.com.delfos.services.excepcions.NotFoundException;
 
 public interface AnuncioService {
 
-	void salvar(AnuncioEntity anuncio, Long id) throws NotFoundException;
+	void salvar(AnuncioEntity anuncio) throws NotFoundException;
+	
+	
 
 	List<AnuncioEntity> buscartudo();
 
@@ -22,5 +24,12 @@ public interface AnuncioService {
 	void deletar(Long id) throws NotFoundException;
 	
 	void contarVotos(int numero, Long idAnuncio, Long idEmpresa);
+	
+	List<AnuncioEntity> buscarPorTitulo(String string);
+	
+	List<AnuncioEntity> buscarPorTipo(String string);
+	
+	
+	
 
 }
