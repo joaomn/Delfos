@@ -8,10 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.ComentarioEntity;
+import br.com.delfos.entitys.EmpresaEntity;
 
 @Repository
 public interface ComentarioRepository extends JpaRepository<ComentarioEntity, Long> {
 	
 	Optional<List<ComentarioEntity>> findContatoByCliente(ClienteEntity cliente);
+	
+//	List<ComentarioEntity> findComentarioByEmpresa(EmpresaEntity empresa);
+	
+	List<ComentarioEntity> findAllByAnuncioId(Long anuncioId);
+	
+	
 
 }

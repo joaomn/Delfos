@@ -1,18 +1,19 @@
-package br.com.delfos.entitys;
+package br.com.delfos.entitys.dtos;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import br.com.delfos.entitys.dtos.ComentarioDTO;
+import br.com.delfos.entitys.AnuncioEntity;
+import br.com.delfos.entitys.ClienteEntity;
+import br.com.delfos.entitys.ComentarioEntity;
+import br.com.delfos.entitys.EmpresaEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +21,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "Comentario")
-public class ComentarioEntity {
+public class ComentarioDTO {
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,12 +42,9 @@ public class ComentarioEntity {
 	@JoinColumn(name = "anuncio_ID", nullable = true)
 	private AnuncioEntity anuncio;
 	
-	public ComentarioDTO toDto() {
-		return new ComentarioDTO(this);
-	}
-	
-	
-	public ComentarioEntity(ComentarioDTO comentario) {
+	private String menssagem;
+
+	public ComentarioDTO(ComentarioEntity comentario) {
 		this.id = comentario.getId();
 		this.texto = comentario.getTexto();
 		this.avaliacao = comentario.getAvaliacao();
@@ -55,5 +52,4 @@ public class ComentarioEntity {
 		this.anuncio = comentario.getAnuncio();
 		
 	}
-
 }
