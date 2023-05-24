@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.delfos.entitys.ClienteEntity;
@@ -12,7 +16,7 @@ import br.com.delfos.repositorys.ClienteRepository;
 import br.com.delfos.services.excepcions.NotFoundException;
 
 @Service
-public class ClienteServiceIMPL implements ClienteService {
+public class ClienteServiceIMPL implements ClienteService, UserDetailsService {
 
 	@Autowired
 	ClienteRepository Crepository;
@@ -21,27 +25,30 @@ public class ClienteServiceIMPL implements ClienteService {
 	public void salvar(ClienteEntity cliente) throws NotFoundException {
 
 		Optional<ClienteEntity> objemail = this.Crepository.findUsuarioByEmail(cliente.getEmail());
-		
+
 		Optional<ClienteEntity> objnome = this.Crepository.findUsuarioByNome(cliente.getNome());
-		
+
 		Optional<ClienteEntity> objtel = this.Crepository.findUsuarioByTelefone(cliente.getTelefone());
-		
-		
-		if(objemail.isPresent()) {
+
+		if (objemail.isPresent()) {
 			throw new NotFoundException("Email já Cadastrado");
 		}
-		
-		if(objnome.isPresent()) {
+
+		if (objnome.isPresent()) {
 			throw new NotFoundException("Nome já Cadastrado");
 		}
-		
-		if(objtel.isPresent()) {
+
+		if (objtel.isPresent()) {
 			throw new NotFoundException("Telefone  já Cadastrado");
 		}
-		
-			this.Crepository.save(cliente);
 
 		
+			String senha = new BCryptPasswordEncoder().encode(cliente.getPassword());
+
+			cliente.setPassword(senha);
+		
+
+		this.Crepository.save(cliente);
 
 	}
 
@@ -117,6 +124,14 @@ public class ClienteServiceIMPL implements ClienteService {
 			throw new NotFoundException("Não foi possivel deletar o usuario.");
 		}
 
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		ClienteEntity user = Crepository.findUsuarioByEmail(username)
+				.orElseThrow(() -> new UsernameNotFoundException(username + " Não foi encontrado"));
+		return user;
 	}
 
 }

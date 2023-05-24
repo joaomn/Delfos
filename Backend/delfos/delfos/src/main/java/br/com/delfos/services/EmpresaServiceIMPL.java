@@ -4,15 +4,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.EmpresaEntity;
 import br.com.delfos.entitys.dtos.EmpresaDTO;
 import br.com.delfos.repositorys.EmpresaRepository;
 import br.com.delfos.services.excepcions.NotFoundException;
 
 @Service
-public class EmpresaServiceIMPL implements EmpresaService {
+public class EmpresaServiceIMPL implements EmpresaService, UserDetailsService {
 	
 	@Autowired
 	EmpresaRepository Erepository;
@@ -37,6 +42,12 @@ public class EmpresaServiceIMPL implements EmpresaService {
 		if(objCpfCnpj.isPresent()) {
 			throw new NotFoundException("CPF ou CNPJ  já Cadastrado");
 		}
+		
+		
+			String senha = new BCryptPasswordEncoder().encode(empresa.getPassword());
+
+			empresa.setPassword(senha);
+		
 		
 		this.Erepository.save(empresa);
 		
@@ -111,6 +122,13 @@ public class EmpresaServiceIMPL implements EmpresaService {
 		} catch (Exception e) {
 			throw new NotFoundException("Não foi possivel deletar o usuario.");
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		EmpresaEntity user = Erepository.findContatoByEmail(username)
+				.orElseThrow(() -> new UsernameNotFoundException(username + " Não foi encontrado"));
+		return user;
 	}
 
 }

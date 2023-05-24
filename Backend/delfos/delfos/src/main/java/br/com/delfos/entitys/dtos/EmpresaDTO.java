@@ -45,6 +45,9 @@ public class EmpresaDTO {
 	
 	private String menssagem;
 	
+	@NotBlank(message = "campo password requerido")
+	private String password;
+	
 	public EmpresaDTO(EmpresaEntity empresa) {
 		this.cpfCnpj = empresa.getCpfCnpj();
 		this.email = empresa.getEmail();
@@ -52,6 +55,7 @@ public class EmpresaDTO {
 		this.responsavel = empresa.getResponsavel();
 		this.telefone = empresa.getTelefone();
 		this.id = empresa.getId();
+		this.password = empresa.getPassword();
 	}
 
 }

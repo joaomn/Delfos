@@ -1,5 +1,7 @@
 package br.com.delfos.entitys;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +16,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import br.com.delfos.entitys.dtos.EmpresaDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +29,11 @@ import lombok.Setter;
 @Entity
 @Table(name = "Empresa")
 @NoArgsConstructor
-public class EmpresaEntity {
+public class EmpresaEntity implements UserDetails, Serializable{
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -50,6 +58,9 @@ public class EmpresaEntity {
 	@Column(name = "CNPJ_CPF")
 	private String cpfCnpj;
 	
+	@NotBlank(message = "campo password requerido")
+	private String password;
+	
 	
 	
 	public EmpresaDTO toDto() {
@@ -63,7 +74,50 @@ public class EmpresaEntity {
 		this.responsavel = empresa.getResponsavel();
 		this.telefone = empresa.getTelefone();
 		this.id = empresa.getId();
+		this.password = empresa.getPassword();
 		
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	}
+	
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.password;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	

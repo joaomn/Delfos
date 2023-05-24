@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.ComentarioEntity;
@@ -32,6 +33,7 @@ public class ClienteDTO {
 	@Column(name = "ID_Cliente")
 	private Long Id;
 
+	@Past(message = "A data deve ser no passado")
 	@NotNull
 	@Column(name = "Data_Nascimento")
 	private LocalDate DtNascimento;
@@ -46,6 +48,9 @@ public class ClienteDTO {
 	private String email;
 
 	private String menssagem;
+	
+	@NotBlank(message = "campo password requerido")
+	private String password;
 
 	public ClienteDTO(ClienteEntity Cliente) {
 		this.Nome = Cliente.getNome();
@@ -53,6 +58,7 @@ public class ClienteDTO {
 		this.DtNascimento = Cliente.getDtNascimento();
 		this.email = Cliente.getEmail();
 		this.Telefone = Cliente.getTelefone();
+		this.password = Cliente.getPassword();
 	}
 //	
 //	@OneToMany(mappedBy = "cliente")
