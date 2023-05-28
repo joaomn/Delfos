@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.delfos.entitys.AnuncioEntity;
-
+import br.com.delfos.entitys.EmpresaEntity;
 import br.com.delfos.entitys.dtos.AnuncioDTO;
-
 import br.com.delfos.services.excepcions.NotFoundException;
 
 public interface AnuncioService {
@@ -28,6 +27,8 @@ public interface AnuncioService {
 	List<AnuncioEntity> buscarPorTitulo(String string);
 	
 	List<AnuncioEntity> buscarPorTipo(String string);
+	
+	List<AnuncioEntity> getAnunciosByEmpresa(EmpresaEntity empresa);
 	
 	
 	

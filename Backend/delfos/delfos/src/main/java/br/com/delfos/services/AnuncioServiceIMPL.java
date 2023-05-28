@@ -176,6 +176,16 @@ public class AnuncioServiceIMPL implements AnuncioService {
 		}
 	}
 
+	@Override
+	public List<AnuncioEntity> getAnunciosByEmpresa(EmpresaEntity empresa) {
+		try {
+			return Arepository.findByEmpresa(empresa);
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 
 
 	

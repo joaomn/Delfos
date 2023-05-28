@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.delfos.entitys.AnuncioEntity;
 import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.EmpresaEntity;
 import br.com.delfos.entitys.dtos.ClienteDTO;
 import br.com.delfos.entitys.dtos.EmpresaDTO;
 import br.com.delfos.repositorys.EmpresaRepository;
+import br.com.delfos.services.AnuncioServiceIMPL;
 import br.com.delfos.services.EmpresaServiceIMPL;
 import br.com.delfos.services.excepcions.NotFoundException;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +38,9 @@ public class EmpresaController {
 	
 	@Autowired
 	private EmpresaServiceIMPL servico;
+	
+	@Autowired
+	private AnuncioServiceIMPL Aservico;
 	
 	@ApiOperation(value = "Persisitr dados no banco")
 	@PostMapping
@@ -150,6 +155,21 @@ public class EmpresaController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		
 	}
+	
+	 @GetMapping("/{empresaId}/anuncios")
+	    public ResponseEntity<List<AnuncioEntity>> getAnunciosByEmpresa(@PathVariable Long empresaId) {
+	        EmpresaEntity empresa = servico.buscarPessoa(empresaId).orElse(null);
+	      
+	        if (empresa != null) {
+	        	List<AnuncioEntity> anuncios = Aservico.getAnunciosByEmpresa(empresa);
+	            
+	            return ResponseEntity.status(HttpStatus.OK).body(anuncios);
+	            
+	        } else {
+	           
+	        	 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	        }
+	 }
 	
 	@Autowired
 	private EmpresaRepository repo;
