@@ -24,6 +24,7 @@ import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.EmpresaEntity;
 import br.com.delfos.entitys.dtos.ClienteDTO;
 import br.com.delfos.entitys.dtos.EmpresaDTO;
+import br.com.delfos.repositorys.EmpresaRepository;
 import br.com.delfos.services.EmpresaServiceIMPL;
 import br.com.delfos.services.excepcions.NotFoundException;
 import io.swagger.annotations.ApiOperation;
@@ -136,6 +137,22 @@ public class EmpresaController {
 		
 		
 	}
+	
+	@PostMapping("/login")
+	 public ResponseEntity<EmpresaDTO> logain(@RequestBody EmpresaDTO dto){
+		Optional<EmpresaEntity> objCli = repo.findContatoByEmail(dto.getEmail());
+		
+		if(objCli.isPresent()){
+			servico.loadUserByUsername(objCli.get().getEmail());
+			return ResponseEntity.status(HttpStatus.OK).body(dto);
+			
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		
+	}
+	
+	@Autowired
+	private EmpresaRepository repo;
 	
 
 }

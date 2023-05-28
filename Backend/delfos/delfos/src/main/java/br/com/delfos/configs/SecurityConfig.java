@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
+
+
 import br.com.delfos.services.ClienteServiceIMPL;
 import br.com.delfos.services.EmpresaServiceIMPL;
 
@@ -46,16 +49,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http
 		.formLogin()
-		.defaultSuccessUrl("http://localhost:8080/swagger-ui/index.html#/")
+		
+		
+				
+		
 		.permitAll()
+		.and()
+		.httpBasic()
+		.and()
+		.cors()
 		.and()
 		.authorizeHttpRequests()
 		.antMatchers("api/login/**").permitAll()
 		.antMatchers("/login").permitAll()
-		.anyRequest().authenticated()
 		.and()
-		.csrf().disable();
+		.authorizeHttpRequests()
+		.anyRequest().permitAll().and().csrf().disable();
 	}
+    
+  
+    
     
     
 }

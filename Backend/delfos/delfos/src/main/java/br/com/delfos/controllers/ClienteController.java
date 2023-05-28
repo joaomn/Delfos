@@ -2,6 +2,7 @@ package br.com.delfos.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.dtos.ClienteDTO;
-import br.com.delfos.services.ClienteServiceIMPL;
-
+import br.com.delfos.repositorys.ClienteRepository;
+import br.com.delfos.services.ClienteServiceIMPL;import ch.qos.logback.core.net.server.Client;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -129,8 +130,22 @@ public class ClienteController {
 		
 	}
 	
+	@PostMapping("/login")
+	 public ResponseEntity<ClienteDTO> logain(@RequestBody ClienteDTO dto){
+		Optional<ClienteEntity> objCli = repo.findUsuarioByEmail(dto.getEmail());
+		
+		if(objCli.isPresent()){
+			servico.loadUserByUsername(objCli.get().getEmail());
+			return ResponseEntity.status(HttpStatus.OK).body(dto);
+			
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		
+	}
+
 	
-	
+	@Autowired
+	private ClienteRepository repo;
 	
 
 }
