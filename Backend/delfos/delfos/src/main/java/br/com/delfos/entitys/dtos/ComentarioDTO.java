@@ -33,13 +33,13 @@ public class ComentarioDTO {
 	
 	@Column(length = 100)
 	private int avaliacao;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cliente_ID", nullable = true)
-	private ClienteEntity cliente;
+//	
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "cliente_ID", nullable = false)
+//	private ClienteEntity cliente;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "anuncio_ID", nullable = true)
+	@JoinColumn(name = "anuncio_ID", nullable = false)
 	private AnuncioEntity anuncio;
 	
 	private String menssagem;
@@ -48,7 +48,7 @@ public class ComentarioDTO {
 		this.id = comentario.getId();
 		this.texto = comentario.getTexto();
 		this.avaliacao = comentario.getAvaliacao();
-		this.cliente = comentario.getCliente();
+//		this.cliente = comentario.getCliente();
 		this.anuncio = comentario.getAnuncio();
 		
 	}

@@ -33,13 +33,13 @@ public class ComentarioEntity {
 	
 	@Column(length = 100)
 	private int avaliacao;
-	
-	@ManyToOne()
-	@JoinColumn(name = "cliente_ID", nullable = true)
-	private ClienteEntity cliente;
+//	
+//	@ManyToOne()
+//	@JoinColumn(name = "cliente_ID", nullable = false)
+//	private ClienteEntity cliente;
 	
 	@OneToOne()
-	@JoinColumn(name = "anuncio_ID", nullable = true)
+	@JoinColumn(name = "anuncio_ID", nullable = false)
 	private AnuncioEntity anuncio;
 	
 	public ComentarioDTO toDto() {
@@ -51,7 +51,7 @@ public class ComentarioEntity {
 		this.id = comentario.getId();
 		this.texto = comentario.getTexto();
 		this.avaliacao = comentario.getAvaliacao();
-		this.cliente = comentario.getCliente();
+//		this.cliente = comentario.getCliente();
 		this.anuncio = comentario.getAnuncio();
 		
 	}

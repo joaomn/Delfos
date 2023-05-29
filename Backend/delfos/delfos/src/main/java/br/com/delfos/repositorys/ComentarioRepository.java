@@ -14,7 +14,7 @@ import br.com.delfos.entitys.EmpresaEntity;
 @Repository
 public interface ComentarioRepository extends JpaRepository<ComentarioEntity, Long> {
 	
-	Optional<List<ComentarioEntity>> findContatoByCliente(ClienteEntity cliente);
+//	Optional<List<ComentarioEntity>> findContatoByCliente(ClienteEntity cliente);
 	
 //	List<ComentarioEntity> findComentarioByEmpresa(EmpresaEntity empresa);
 	

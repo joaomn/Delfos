@@ -75,7 +75,7 @@ public class ComentarioServiceIMPL implements ComentarioService {
 			
 			obj.setAnuncio(empresa.getAnuncio());
 			obj.setAvaliacao(empresa.getAvaliacao());
-			obj.setCliente(empresa.getCliente());
+//			obj.setCliente(empresa.getCliente());
 			obj.setId(empresa.getId());
 			obj.setTexto(empresa.getTexto());
 			
