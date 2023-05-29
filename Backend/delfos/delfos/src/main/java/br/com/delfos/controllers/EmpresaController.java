@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.delfos.entitys.AnuncioEntity;
 import br.com.delfos.entitys.ClienteEntity;
@@ -97,6 +98,26 @@ public class EmpresaController {
 
 	}
 	
+	@ApiOperation(value = "Retornar por email")
+	@GetMapping("/alguem/{cliente}")
+	public ResponseEntity<EmpresaDTO> showbyemail(@PathVariable("cliente") String clienteencod) {
+
+		String email = UriComponentsBuilder.fromUriString(clienteencod).build().getPathSegments().get(0);
+
+		Optional<EmpresaEntity> clientee = this.servico.buscarPorEmail(email);
+
+		if (clientee.isPresent()) {
+			return ResponseEntity.status(HttpStatus.OK).body(clientee.get().toDto());
+
+		}
+
+		EmpresaDTO clienteDTO = new EmpresaDTO();
+		clienteDTO.setMenssagem("Usuario não encontrado");
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteDTO);
+
+	}
+	
 	
 	@ApiOperation(value = "Deletar Cadastro")
 	@DeleteMapping("/{id}")
@@ -155,7 +176,7 @@ public class EmpresaController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		
 	}
-	
+	@ApiOperation(value = "retornar todos anuncios da empresa")
 	 @GetMapping("/{empresaId}/anuncios")
 	    public ResponseEntity<List<AnuncioEntity>> getAnunciosByEmpresa(@PathVariable Long empresaId) {
 	        EmpresaEntity empresa = servico.buscarPessoa(empresaId).orElse(null);

@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.UriUtils;
 
 import br.com.delfos.entitys.ClienteEntity;
 import br.com.delfos.entitys.dtos.ClienteDTO;
 import br.com.delfos.repositorys.ClienteRepository;
-import br.com.delfos.services.ClienteServiceIMPL;import ch.qos.logback.core.net.server.Client;
+import br.com.delfos.services.ClienteServiceIMPL;
+import ch.qos.logback.core.net.server.Client;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -90,17 +92,37 @@ public class ClienteController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteDTO);
 
 	}
-	
+
+	@ApiOperation(value = "Retornar por email")
+	@GetMapping("/alguem/{cliente}")
+	public ResponseEntity<ClienteDTO> showbyemail(@PathVariable("cliente") String clienteencod) {
+
+		String email = UriComponentsBuilder.fromUriString(clienteencod).build().getPathSegments().get(0);
+
+		Optional<ClienteEntity> clientee = this.servico.buscarPorEmail(email);
+
+		if (clientee.isPresent()) {
+			return ResponseEntity.status(HttpStatus.OK).body(clientee.get().toDto());
+
+		}
+
+		ClienteDTO clienteDTO = new ClienteDTO();
+		clienteDTO.setMenssagem("Usuario não encontrado");
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteDTO);
+
+	}
+
 	@ApiOperation(value = "Deletar Cadastro")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ClienteDTO> delete(@PathVariable Long id){
-		
+	public ResponseEntity<ClienteDTO> delete(@PathVariable Long id) {
+
 		ClienteDTO clienteDTO = new ClienteDTO();
-		
+
 		clienteDTO.setId(id);
-		
+
 		try {
-		
+
 			this.servico.delete(clienteDTO.getId());
 			clienteDTO.setMenssagem("Excluido com sucesso");
 			return ResponseEntity.status(HttpStatus.OK).body(clienteDTO);
@@ -109,43 +131,40 @@ public class ClienteController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteDTO);
 		}
 	}
-	
+
 	@ApiOperation(value = "Atualizar cadastro")
 	@PutMapping("/{id}")
 	public ResponseEntity<ClienteDTO> update(@Valid @PathVariable Long id, @RequestBody ClienteDTO dto) {
-		
+
 		Optional<ClienteEntity> cliente = this.servico.buscarPessoa(id);
-		
-		if(cliente.isPresent()) {
+
+		if (cliente.isPresent()) {
 			servico.update(id, dto);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(cliente.get().toDto());
+
+			return ResponseEntity.status(HttpStatus.OK).body(cliente.get().toDto());
 		}
-		
+
 		ClienteDTO clienteDTO = new ClienteDTO();
 		clienteDTO.setMenssagem("Usuario não encontrado");
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clienteDTO);
-		
-		
-	}
-	
-	@PostMapping("/login")
-	 public ResponseEntity<ClienteDTO> logain(@RequestBody ClienteDTO dto){
-		Optional<ClienteEntity> objCli = repo.findUsuarioByEmail(dto.getEmail());
-		
-		if(objCli.isPresent()){
-			servico.loadUserByUsername(objCli.get().getEmail());
-			return ResponseEntity.status(HttpStatus.OK).body(dto);
-			
-		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		
+
 	}
 
-	
+	@PostMapping("/login")
+	public ResponseEntity<ClienteDTO> logain(@RequestBody ClienteDTO dto) {
+		Optional<ClienteEntity> objCli = repo.findUsuarioByEmail(dto.getEmail());
+
+		if (objCli.isPresent()) {
+			servico.loadUserByUsername(objCli.get().getEmail());
+			return ResponseEntity.status(HttpStatus.OK).body(dto);
+
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
+	}
+
 	@Autowired
 	private ClienteRepository repo;
-	
 
 }

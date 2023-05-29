@@ -18,6 +18,8 @@ public interface ClienteService {
 	 ClienteDTO update(Long id, ClienteDTO cliente);
 	 
 	 void delete(Long id) throws NotFoundException;
+	 
+	 Optional<ClienteEntity> buscarPorEmail (String cliente);
 	
 
 }

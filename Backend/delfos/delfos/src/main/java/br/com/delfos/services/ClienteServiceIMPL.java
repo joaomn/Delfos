@@ -134,4 +134,13 @@ public class ClienteServiceIMPL implements ClienteService, UserDetailsService {
 		return user;
 	}
 
+	@Override
+	public Optional<ClienteEntity> buscarPorEmail(String cliente) {
+		try {
+			return this.Crepository.findUsuarioByEmail(cliente);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

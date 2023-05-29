@@ -6,7 +6,7 @@
     >
       <router-link id="castre" class="cursor-pointer" to="/cadastro" style="color: black;"> Cadastre-se </router-link>
       <p>|</p>
-      <router-link class="cursor-pointer mr-2" to="/login" style="color: black;"> Login</router-link>
+      <router-link class="cursor-pointer mr-2" to="/loginambos" style="color: black;"> Login</router-link>
     </div>
   </div>
   <br />
@@ -163,11 +163,16 @@ import { AlternateEmail } from '@mui/icons-material';
 export default  
 {
   name: 'TheHome',
+  data() {
+    return {
+      value1: ''
+    };
+  },
+  props: {},
+  methods: {},
 };
 
-function foi(){
-  console.log("aqui");
-}
+
 
 
 </script>

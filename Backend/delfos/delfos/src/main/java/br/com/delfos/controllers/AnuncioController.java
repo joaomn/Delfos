@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.delfos.entitys.AnuncioEntity;
+import br.com.delfos.entitys.ComentarioEntity;
 import br.com.delfos.entitys.EmpresaEntity;
 import br.com.delfos.entitys.dtos.AnuncioDTO;
 import br.com.delfos.entitys.dtos.EmpresaDTO;
 import br.com.delfos.services.AnuncioServiceIMPL;
+import br.com.delfos.services.ComentarioServiceIMPL;
 import br.com.delfos.services.excepcions.NotFoundException;
 import io.swagger.annotations.ApiOperation;
 
@@ -35,6 +37,9 @@ public class AnuncioController {
 	
 	@Autowired
 	private AnuncioServiceIMPL servico;
+	
+//	@Autowired
+//	private ComentarioServiceIMPL Cservico;
 	
 	@ApiOperation(value = "Persisitr dados no banco")
 	@PostMapping
@@ -171,6 +176,22 @@ public class AnuncioController {
 
 	}
 	
+//	@ApiOperation(value = "retornar todos comentarios do anuncio")
+//	 @GetMapping("/{empresaId}/anuncios")
+//	    public ResponseEntity<List<ComentarioEntity>> getAnunciosByEmpresa(@PathVariable Long anuncioId) {
+//		AnuncioEntity empresa = servico.buscarPorIdentificador(anuncioId).orElse(null);
+//	      
+//	        if (empresa != null) {
+//	        	List<ComentarioEntity> anuncios = Cservico.getAnunciosByEmpresa(empresa);
+//	            
+//	            return ResponseEntity.status(HttpStatus.OK).body(anuncios);
+//	            
+//	        } else {
+//	           
+//	        	 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//	        }
+//	 }
+//	
 	 
 	
 	

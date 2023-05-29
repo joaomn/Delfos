@@ -40,7 +40,7 @@ public class ComentarioController {
 	
 	@ApiOperation(value = "Persisitr dados no banco")
 	@PostMapping
-	public ResponseEntity<ComentarioDTO> salvar(@Valid @RequestBody ComentarioDTO dto) {
+	public ResponseEntity<ComentarioDTO> salvar( @RequestBody ComentarioDTO dto) {
 
 		ComentarioEntity cliente = new ComentarioEntity(dto);
 
@@ -138,6 +138,13 @@ public class ComentarioController {
 		
 		
 	}
+	
+	 @GetMapping("/{anuncioId}/comentarios")
+	    public ResponseEntity<List<ComentarioEntity>> getComentariosByAnuncioId(@PathVariable Long anuncioId) {
+	        List<ComentarioEntity> comentarios = servico.buscarComentariosPorAnuncioId(anuncioId);
+	        return ResponseEntity.ok(comentarios);
+	    }
+	
 	
 	
 

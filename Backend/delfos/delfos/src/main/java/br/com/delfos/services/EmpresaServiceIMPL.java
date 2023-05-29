@@ -131,4 +131,13 @@ public class EmpresaServiceIMPL implements EmpresaService, UserDetailsService {
 		return user;
 	}
 
+	@Override
+	public Optional<EmpresaEntity> buscarPorEmail(String cliente) {
+		try {
+			return this.Erepository.findContatoByEmail(cliente);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

@@ -3,9 +3,9 @@ package br.com.delfos.services;
 import java.util.List;
 import java.util.Optional;
 
-
-
+import br.com.delfos.entitys.AnuncioEntity;
 import br.com.delfos.entitys.ComentarioEntity;
+import br.com.delfos.entitys.EmpresaEntity;
 import br.com.delfos.entitys.dtos.ComentarioDTO;
 import br.com.delfos.services.excepcions.NotFoundException;
 
@@ -22,5 +22,7 @@ public interface ComentarioService  {
 	 void deletar(Long id) throws NotFoundException;
 	 
 	 List<ComentarioEntity> buscarComentariosPorAnuncioId(Long anuncioId);
+	 
+//	 List<ComentarioEntity> getAnunciosByEmpresa(AnuncioEntity anuncio);
 
 }

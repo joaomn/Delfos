@@ -10,10 +10,10 @@
 
     <form>
         <label for="email1" class="block text-900 font-medium mb-2">Email</label>
-        <InputText id="email1" type="text" v-model="usuario.email" class="w-full mb-3" />
+        <InputText id="email1" type="text" v-model="email" class="w-full mb-3" />
 
         <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-        <InputText id="password1" type="password" v-model="usuario.password" class="w-full mb-3" />
+        <InputText id="password1" type="password" v-model="password" class="w-full mb-3" />
 
        
 
@@ -32,21 +32,25 @@ export default {
   created() {},
   data() {
     return {
-      usuario:{
+     
         email: '',
         password: ''
-      }
+     
     };
   },
   props: {},
   methods: {
     async Userlogin(){
       const resultado = await axios
-      .post("http://localhost:8080/api/cliente/login", this.usuario)
+      .post("http://localhost:8080/api/cliente/login", {
+        email: this.email,
+        password: this.password
+      })
       .then(result => {
-        
+        Cookies.set('cliente', this.email, { expires: 12/24 });        
         alert("Logado com Sucesso");
         this.$router.push('/painel');
+        console.log(Cookies.get('cliente'));
         
       })
       .catch(erro => {

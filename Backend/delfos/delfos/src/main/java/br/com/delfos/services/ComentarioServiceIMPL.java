@@ -35,7 +35,7 @@ public class ComentarioServiceIMPL implements ComentarioService {
 		
 			this.Crepository.save(empresa);
 		} catch (Exception e) {
-			throw new NotFoundException("Nao foi possivel salvar o comentario");
+			throw new NotFoundException(e.getMessage());
 		}
 		
 	}
@@ -116,6 +116,16 @@ public class ComentarioServiceIMPL implements ComentarioService {
 		return Crepository.findAllByAnuncioId(anuncioId);
 		
 	}
+
+//	@Override
+//	public List<ComentarioEntity> getAnunciosByEmpresa(AnuncioEntity anuncio) {
+//		try {
+//			return Crepository.findByComentario(anuncio);
+//			
+//		} catch (Exception e) {
+//			return null;
+//		}
+//	}
 
 	
 

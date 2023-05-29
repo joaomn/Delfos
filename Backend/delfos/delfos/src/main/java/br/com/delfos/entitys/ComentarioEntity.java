@@ -34,11 +34,11 @@ public class ComentarioEntity {
 	@Column(length = 100)
 	private int avaliacao;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "cliente_ID", nullable = true)
 	private ClienteEntity cliente;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name = "anuncio_ID", nullable = true)
 	private AnuncioEntity anuncio;
 	
