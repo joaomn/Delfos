@@ -30,6 +30,9 @@ import { AlternateEmail } from '@mui/icons-material';
 export default {
   name: "Login",
   created() {},
+  mounted() {
+    
+  },
   data() {
     return {
       
@@ -49,7 +52,7 @@ export default {
       .then(result => {
         Cookies.set('empresa', this.email, {expires: 12/24})
         alert("Logado com Sucesso");
-        this.$router.push('/painel');
+        this.$router.push('/painelemp');
         
       })
       .catch(erro => {
@@ -64,4 +67,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style >
+
+</style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
-    <Card>
-      <template #title>
-    <h2
+  <div class="flex justify-content-center m-8">
+    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+    
+    <h2 class="text-900 text-3xl font-medium mb-3"
       style="
         margin-bottom: 5rem;
         margin-left: 2rem;
@@ -13,13 +13,21 @@
     >
       Cadastrar Cliente
     </h2>
-  </template>
-    <template #content>
+ 
     <form
       class="flex flex-column aligin-content-center align-items-center justify-content-center"
-    > 
+    > <div class="field " style=" width: 57%;">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <h4 class="mr-1"> Data de Nascimento</h4>
+          
+              <i class="pi pi-calendar-times"></i>
+            </span>
+            <Calendar v-model="cliente.dtNascimento" required showIcon />
+          </div>
+        </div>
    
-      <div class=" field w-5 m-3 mb-3">
+      <div class=" field w-7 m-3 mb-3">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <P class="mr-1">Nome</P>
@@ -30,7 +38,7 @@
        
       </div>
 
-      <div class="field w-5 m-3">
+      <div class="field w-7 m-3">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <P class="mr-1">Telefone</P>
@@ -40,7 +48,7 @@
         </div>
       </div>
 
-      <div class="field w-5 m-3">
+      <div class="field w-7 m-3">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <P class="mr-1">Email</P>
@@ -50,7 +58,7 @@
         </div>
       </div>
 
-      <div class="field w-5 m-3">
+      <div class="field w-7 m-3">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
             <P class="mr-1">Senha</P>
@@ -59,26 +67,17 @@
           <Password v-model="cliente.password" toggleMask />
         </div>
       </div>
- <div class="field " style="">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <h4 class="mr-1"> Data de Nascimento</h4>
-          
-              <i class="pi pi-calendar-times"></i>
-            </span>
-            <Calendar v-model="cliente.dtNascimento" required showIcon />
-          </div>
-        </div>
+ 
       <Button
         label="Cadastrar"
         icon="pi pi-check"
-        class="w-2 ml-3 mb-8"
+        class="w-4 ml-3 mb-8"
         @click="addCliente"
       />
     </form>
-  </template>
-  </Card>
+ 
   </div>
+</div>
 </template>
 
 <script>

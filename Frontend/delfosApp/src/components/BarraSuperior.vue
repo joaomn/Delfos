@@ -21,7 +21,7 @@
    border-bottom: 8px solid rgb(34, 33, 33);
    width: 100% ;
    height: 8rem;
-   margin-bottom: 50px;
+   margin-bottom: 0px;
    box-shadow: -5px 4px 2px 1px rgb(133, 104, 104);
 }
 

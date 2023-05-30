@@ -23,6 +23,10 @@ import ToastService from 'primevue/toastservice';
 import Card from 'primevue/card';
 import Calendar from 'primevue/calendar';
 import Password from 'primevue/password';
+import Dock from 'primevue/dock';
+import SpeedDial from 'primevue/speeddial';
+import RadioButton from 'primevue/radiobutton';
+import Sidebar from 'primevue/sidebar';
 
 
 const app = createApp(App);
@@ -39,6 +43,10 @@ app.component('toast', Toast)
 app.component('Card', Card)
 app.component('Calendar', Calendar)
 app.component('Password', Password)
+app.component('Dock', Dock)
+app.component('SpeedDial', SpeedDial)
+app.component('RadioButton', RadioButton)
+app.component('Sidebar', Sidebar)
 
 app.use(router);
 app.use(ToastService);

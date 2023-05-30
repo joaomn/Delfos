@@ -1,6 +1,7 @@
 <template>
 
   <div class="card">
+    <div class=""></div>
     <Card>
       <template #title>
         <h2  style="
@@ -115,7 +116,7 @@ export default {
         .post("http://localhost:8080/api/empresa", this.empresa)
         .then((result) => {
           alert("Cadastrado com Sucesso!");
-          this.$router.push('/login');
+          this.$router.push('/loginemp');
         })
         .catch((erro) => {
           alert("Dados incorretos ou já cadastrados"         

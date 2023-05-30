@@ -9,6 +9,7 @@ import CadastroCliente from  '../views/CadastroCliente.vue'
 import Painel from  '../views/Painel.vue'
 import LoginEmp from  '../views/LoginEmp.vue'
 import LoginAmbos from  '../views/LoginAmbos.vue'
+import PainelEmpresa from  '../views/PainelEmpresa.vue'
 
 
 const routes = [
@@ -44,6 +45,10 @@ const routes = [
   {
     path: '/loginambos',
     component: LoginAmbos
+  },
+  {
+    path: '/painelemp',
+    component: PainelEmpresa
   }
 
 ];

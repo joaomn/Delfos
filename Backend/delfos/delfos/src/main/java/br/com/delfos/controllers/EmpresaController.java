@@ -177,7 +177,7 @@ public class EmpresaController {
 		
 	}
 	@ApiOperation(value = "retornar todos anuncios da empresa")
-	 @GetMapping("/{empresaId}/anuncios")
+	 @GetMapping("/anuncios/{empresaId}")
 	    public ResponseEntity<List<AnuncioEntity>> getAnunciosByEmpresa(@PathVariable Long empresaId) {
 	        EmpresaEntity empresa = servico.buscarPessoa(empresaId).orElse(null);
 	      
