@@ -202,7 +202,7 @@ export default {
         dtPostagem: '',
         email: '',
         empresa: {
-          id: 12,
+          id: '',
         },
         id: '',
         mensagem: '',
@@ -213,7 +213,7 @@ export default {
         valor: '',
       },
 
-      pessoaID: 0,
+      pessoaID: '',
       displayCreate: false,
       deleteDialog: false,
       displayEdit:false,
@@ -225,7 +225,7 @@ export default {
   },
   
     async mounted() {
-        this.resultado(),
+       await this.resultado(),
    this.getAnunciosEmp()
         
 
@@ -252,14 +252,13 @@ export default {
       console.log(this.pessoaID);
     }
     ,
-    async getAnunciosEmp(){
-
-      const value1 = this.pessoaID.toString;
-      const chamada = parseInt(value1);
+    async getAnunciosEmp(id){
+        id = this.pessoaID;
       
+      console.log(id);
       
       await axios
-      .get("http://localhost:8080/api/empresa/anuncios/" + 12)
+      .get("http://localhost:8080/api/empresa/anuncios/" + id)
       .then(anun =>{
 
         this.anuncios = anun.data;
@@ -272,8 +271,11 @@ export default {
       })
     },
     async addAnuncio(){
+
+       this.anuncio.empresa.id = this.pessoaID;
       this.anuncio.dtPostagem = new Date().toISOString().split('T')[0];
       await axios
+     
       .post("http://localhost:8080/api/anuncio", this.anuncio)
       .then(resposta =>{
         alert("cadastrado com sucesso");
