@@ -22,10 +22,13 @@ import Teste from './components/Teste.vue'
 </template>
 
 <style >
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   border: 0;
+  font-family: 'Kanit', sans-serif;
   
 }
 

@@ -2,8 +2,8 @@
  
   <div class="card flex justify-content-start align-content-start m-2 mt-3">
     <Sidebar v-model:visible="visible">
-        <h2>Sidebar</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <h2>Painel Da Empresa</h2>
+        <p>Aqui voce pode gerenciar todos os seus anuncios de forma rapida e facil.</p>
     </Sidebar>
     <Button icon="pi pi-arrow-right" @click="visible = true" />
 </div>
