@@ -12,7 +12,7 @@
     <h2 style="font-size: 40px; font-weight: 900; margin: 4rem; margin-top: -60px;">Paniel de Empresa</h2>
   </div>
 
-  <div class="card">
+  <div class=" shadow-7 card">
     <DataTable :value="anuncios" tableStyle="min-width: 40rem">
       <template #header>
           <div class="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -25,15 +25,16 @@
       <Column field="titulo" header="Nome"></Column>
       <Column field="texto" header="Descrição"></Column>
 
-      <Column field="valor" header="Preço">      
+      <Column field="valor" header="Preço"> 
+           
       </Column>
       <Column field="tipo" header="Categoria"></Column>
       <Column field="telefone" header="Telefone"> </Column>
         <Column field="email" header="Email"></Column>
         <Column   id="coluna botao" header=" ">
           <template #body="slotProps">
-          <Button label="Editar"  icon="pi pi-user-edit" severity="warning" class="m-1" @click="openEdit(slotProps.data)" />
-          <Button label="Apagar"  severity="danger"  icon="pi pi-trash" class="m-1" @click="deleteDialogbox(slotProps.data)" /> 
+          <Button label="Editar"  icon="pi pi-user-edit" severity="warning" class="m-1 w-5" @click="openEdit(slotProps.data)" />
+          <Button label="Apagar"  severity="danger"  icon="pi pi-trash" class="m-1 w-6" @click="deleteDialogbox(slotProps.data)" /> 
           </template>
         </Column>
          
@@ -43,7 +44,7 @@
   </DataTable>
   </div>
 
-  <Dialog v-model:visible="displayCreate" :style="{ width: '900px' }" :modal="true" class="p-fluid">
+  <Dialog v-model:visible="displayCreate" :style="{ width: '900px'}" :modal="true" class="p-fluid">
     <div class="card">
         <h2 class="text-center">Inserir Anuncio</h2>
         <form class="p-fluid">
@@ -74,15 +75,15 @@
             <div class="field">
               <div class="p-inputgroup">
                   <span class="p-inputgroup-addon">
-                      <i class="pi pi-phone"></i>
+                      <i class="pi pi-dollar"></i>
                   </span>
-                  <InputText placeholder="Preço" v-model="anuncio.valor"  />
+                  <InputText placeholder="Preço. ex: 500,00" v-model="anuncio.valor"  />
               </div>
           </div>
           <div class="field">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
-                    <i class="pi pi-phone"></i>
+                    <i class="pi pi-comment"></i>
                 </span>
                 <InputText placeholder="Descreva seu serviço" v-model="anuncio.texto"  />
             </div>
@@ -90,9 +91,9 @@
         <div class="field">
           <div class="p-inputgroup">
               <span class="p-inputgroup-addon">
-                  <i class="pi pi-phone"></i>
+                  <i class="pi pi-briefcase"></i>
               </span>
-              <InputText placeholder="Tipo de Serviço" v-model="anuncio.tipo"  />
+              <InputText placeholder="Tipo de Serviço. ex: baba, lava jato" v-model="anuncio.tipo"  />
           </div>
       </div>
         <input type="hidden" v-model="anuncio.empresa.id">
@@ -133,7 +134,7 @@
               <div class="field">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">
-                        <i class="pi pi-phone"></i>
+                        <i class="pi pi-dollar"></i>
                     </span>
                     <InputText placeholder="Preço" v-model="cont.valor"  />
                 </div>
@@ -141,7 +142,7 @@
             <div class="field">
               <div class="p-inputgroup">
                   <span class="p-inputgroup-addon">
-                      <i class="pi pi-phone"></i>
+                      <i class="pi pi-comment"></i>
                   </span>
                   <InputText placeholder="Descreva seu serviço" v-model="cont.texto"  />
               </div>
@@ -149,9 +150,9 @@
           <div class="field">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
-                    <i class="pi pi-phone"></i>
+                    <i class="pi pi-briefcase"></i>
                 </span>
-                <InputText placeholder="Tipo de Serviço" v-model="cont.tipo"  />
+                <InputText placeholder="Tipo de Serviço, ex: baba, lava jato" v-model="cont.tipo"  />
             </div>
         </div>
           <input type="hidden" v-model="cont.empresa.id">
@@ -166,12 +167,12 @@
       <div class="textodelete">
           Tem certeza que deseja deletar o usuario?
       </div>
-      <Div class="botaoDeletar">
+      <Div class="botaoDeletar m-3">
 
-          <Button label="Sair" icon="pi pi-times" style="background-color: #f2f2f2; width: 120px;height:45px ;"
+          <Button label="Sair" icon="pi pi-times" style="background-color: #f2f2f2; width: 90px;height:40px ;"
               @click="closeDelete" autofocus class="p-button-text" />
           <Button label="Deletar" icon="pi pi-trash"
-              style="background-color: red;width: 120px;height:45px ;margin-left: 10px;"
+              style="background-color: rgba(194, 0, 0, 0.897);width: 110px;height:43px ;margin-left: 10px;"
               @click="deleteAgenda(alguem.id)" />
       </Div>
   </Dialog>

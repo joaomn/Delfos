@@ -16,7 +16,7 @@
  
     <form
       class="flex flex-column aligin-content-center align-items-center justify-content-center"
-    > <div class="field " style=" width: 57%;">
+    > <div class="field " style=" width: 70%;">
           <div class="p-inputgroup">
             <span class="p-inputgroup-addon">
               <h4 class="mr-1"> Data de Nascimento</h4>

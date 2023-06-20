@@ -27,10 +27,13 @@ import Dock from 'primevue/dock';
 import SpeedDial from 'primevue/speeddial';
 import RadioButton from 'primevue/radiobutton';
 import Sidebar from 'primevue/sidebar';
+import Rating from 'primevue/rating';
 
 
 const app = createApp(App);
 
+
+app.component('Rating', Rating)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('ColumnGroup', ColumnGroup)
